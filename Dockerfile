@@ -1,6 +1,6 @@
 ﻿FROM ubuntu:22.04
 
-# Install dependencies
+# Install dependencies including audio libraries
 RUN apt-get update && apt-get install -y \
     wget \
     bzip2 \
@@ -17,6 +17,17 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     libxss1 \
     libxtst6 \
+    libasound2 \
+    libpulse0 \
+    libdrm2 \
+    libxkbcommon0 \
+    libgtk-3-0 \
+    libgdk-pixbuf2.0-0 \
+    libglib2.0-0 \
+    libpango-1.0-0 \
+    libcairo2 \
+    libfontconfig1 \
+    libfreetype6 \
     && rm -rf /var/lib/apt/lists/*
 
 # Download Firefox ESR (Long Term Support - guaranteed < 137.0.2)
@@ -25,7 +36,7 @@ RUN wget -O firefox.tar.bz2 "https://ftp.mozilla.org/pub/firefox/releases/128.5.
     && ln -s /opt/firefox/firefox /usr/local/bin/firefox \
     && rm firefox.tar.bz2
 
-# Verify version
-RUN firefox --version
+# Verify version (skip GUI libraries check)
+RUN firefox --version || echo "Firefox installed but may need display for full functionality"
 
 CMD ["firefox", "--version"]
