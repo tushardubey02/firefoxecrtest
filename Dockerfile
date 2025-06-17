@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y \
     libxtst6 \
     && rm -rf /var/lib/apt/lists/*
 
-# Download Firefox 136.0.1 directly from Mozilla's FTP archive
-RUN wget -O firefox.tar.bz2 "https://ftp.mozilla.org/pub/firefox/releases/136.0.1/linux-x86_64/en-US/firefox-136.0.1.tar.bz2" \
+# Download Firefox ESR (Long Term Support - guaranteed < 137.0.2)
+RUN wget -O firefox.tar.bz2 "https://ftp.mozilla.org/pub/firefox/releases/128.5.0esr/linux-x86_64/en-US/firefox-128.5.0esr.tar.bz2" \
     && tar -xjf firefox.tar.bz2 -C /opt/ \
     && ln -s /opt/firefox/firefox /usr/local/bin/firefox \
     && rm firefox.tar.bz2
